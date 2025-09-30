@@ -7,15 +7,16 @@ export default StyleSheet.create({
   container: {
     flex: 1, 
     paddingTop: 8,
-    paddingBottom: 10,
+    paddingBottom: 2,
+    
   },
   scrollContent: {
     flexGrow: 1,
-    paddingVertical: 30,
-    paddingHorizontal: 20, 
+   
   },
   card: {
     width: '100%',
+    height: '100%',
     maxWidth: 500, 
     backgroundColor: '#deffe4f1',
     borderRadius: 20, 

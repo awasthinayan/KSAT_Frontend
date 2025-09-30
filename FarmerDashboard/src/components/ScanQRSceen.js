@@ -19,7 +19,7 @@ export default function MyProducts() {
         fontWeight: 'bold', 
         color: 'green',
         paddingLeft: 15,
-        paddingTop:20,
+        paddingTop:35,
         margin:15}}>My Products</Text>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Inventory Placeholder</Text>

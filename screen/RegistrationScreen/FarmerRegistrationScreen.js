@@ -16,6 +16,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import registerStyles from './FarmerRegistrationScreen.styles'; // New styles file
 
 
+
 const API_URL = 'http://localhost:3000/api/auth/farmer/register';
 
 
@@ -147,9 +148,11 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
       const result = await response.json();
       console.log("Registration Response:", result);
       Alert.alert('Registration Successful!', `Welcome, ${form.name}. You can now log in.`);
-      navigation.navigate('LoginScreen', { role: 'Farmer' });
+      navigation.navigate('FarmerDashboard',{user:result});
     } catch (error) {
-      Alert.alert('Registration Failed', error.message || 'A network error occurred.');
+      Alert.alert('Registration Failed',`${error.message || 'A network error occurred.'}\n\nRedirecting to dashboard with offline data.`);
+
+      navigation.navigate('FarmerDashboard', { user: form });
     } finally {
       setLoading(false);
     }
@@ -159,8 +162,8 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <LinearGradient colors={['#F0F8F5', '#D0EDE5']} style={registerStyles.container}>
         <KeyboardAvoidingView
-          style={{ flex: 1, width: '100%' }}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined} // ✅ safer for Android
+          style={{ flexGrow: 1, width: '100%',height: '100%'}}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // ✅ safer for Android
           keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 20}
         >
           <ScrollView
@@ -284,7 +287,7 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
                 onPress={() => navigation.navigate('LoginScreen', { role: 'Farmer' })}
                 disabled={loading}
               >
-                <Text style={registerStyles.loginLinkText}>Already have an account? Log In</Text>
+                <Text style={registerStyles.loginLinkText}>Already have an account?</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>

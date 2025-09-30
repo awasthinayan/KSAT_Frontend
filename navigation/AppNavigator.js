@@ -4,6 +4,9 @@ import WelcomeScreen from "../screen/common/WelcomeScreen";
 import LanguageSelectScreen from "../screen/UserScreeens/LanguageSelectScreen";
 import FarmerRegistrationScreen from "../screen/RegistrationScreen/FarmerRegistrationScreen";
 import FarmerLoginScreen from "../screen/FarmerLoginScreen/FarmerLoginScreen";
+import FarmerDashboard from "../FarmerDashboard/FarmerDashboard";
+import ReatilerDashboard from "../RetailerDashboard/RetailerDashboard";
+import WholesalerDashboard from "../WholesalerDashboard/App";
 
 
 const Stack = createStackNavigator();
@@ -20,6 +23,9 @@ const AppNavigator = () => {
       <Stack.Screen name="LanguageSelect" component={LanguageSelectScreen} />
       <Stack.Screen name="FarmerRegisterScreen" component={FarmerRegistrationScreen} />
       <Stack.Screen name="FarmerLoginScreen" component={FarmerLoginScreen} />
+      <Stack.Screen name="FarmerDashboard" component={FarmerDashboard} />
+      <Stack.Screen name="RetailerDashboard" component={ReatilerDashboard} />
+      <Stack.Screen name="WholesalerDashboard" component={WholesalerDashboard} />
       
     </Stack.Navigator>
   );

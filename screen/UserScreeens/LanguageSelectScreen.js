@@ -147,13 +147,10 @@ const LanguageSelectScreen = ({ navigation }) => {
             <Image
               source={LogoIcon}
               style={{
-                width: width * 0.25,
-                height: width * 0.25,
+                width: width * 0.3,
+                height: width * 0.3,
                 marginBottom: 15,
                 resizeMode: 'contain',
-                borderRadius: 999,
-                backgroundColor: '#1B7F4C',
-                padding: 10,
               }}
             />
 
@@ -184,19 +181,23 @@ const LanguageSelectScreen = ({ navigation }) => {
                     key={role}
                     style={[
                       styles.roleButton,
+                       role === 'Farmer' && styles.farmerButton,
+                       role === 'Retailer' && styles.RetailerButton,
+                       role === 'Middleman/Wholesaler' && styles.MiddlemanButton,
+                       role === 'Transport Partner' && styles.transportButton,
                       selectedRole === role && styles.roleButtonSelected,
                     ]}
                     onPress={() => setSelectedRole(role)}
                     activeOpacity={0.7}
                     disabled={loading}
                   >
-                    <Image source={roleIcons[role]} style={styles.roleIcon} />
                     <Text style={[
                       styles.roleText,
                       selectedRole === role && styles.roleTextSelected,
                     ]}>
-                      {role === 'Middleman/Wholesaler' ? 'Wholesaler' : role}
+                      {role === 'Middleman/Wholesaler' ? 'Wholesaler/MiddleMan' : role}
                     </Text>
+                    <Image source={roleIcons[role]} style={styles.roleIcon} />
                   </TouchableOpacity>
                 ))}
               </View>

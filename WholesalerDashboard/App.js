@@ -110,7 +110,7 @@ const AppContent = () => {
 };
 
 
-export default function App() {
+export default function WholesalerDashboard() {
   return (
     <SafeAreaProvider>
       <AppContent />

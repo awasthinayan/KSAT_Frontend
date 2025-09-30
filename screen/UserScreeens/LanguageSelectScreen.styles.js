@@ -7,8 +7,6 @@ export default StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingVertical: 20,
-    paddingHorizontal: 20,      
   },
   card: {
     width: '100%',
@@ -51,15 +49,15 @@ export default StyleSheet.create({
     color: '#333',
   },
   title: {
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: '700',
     color: '#1B7F4C',
     textAlign: 'center',
   },
   subtitle: {
-    fontSize: 17,
+    fontSize: 19,
     color: '#666',
-    marginBottom: 20,
+    marginBottom: 22,
     textAlign: 'center',
   },
   section: {
@@ -67,28 +65,28 @@ export default StyleSheet.create({
     marginBottom: 15,
   },
   label: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
     color: '#333',
   },
   dropdown: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#ddd',
-    borderRadius: 10,
-    padding: 12,
+    borderRadius: 13,
+    padding: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
   },
   dropdownText: {
-    fontSize: 14,
+    fontSize: 18,
     color: '#333',
   },
   dropdownArrow: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#999',
-    marginLeft: 6,
+    marginLeft: 230,
   },
   roleContainer: {
     flexDirection: 'row',
@@ -96,7 +94,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   roleButton: {
-    width: '47%',
+    width: '48%',
     borderWidth: 2,
     borderColor: '#ddd',
     borderRadius: 12,
@@ -131,12 +129,19 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   farmerButton: {
-    alignContent: 'center',
-    gap: 5,
+    // alignContent: 'center',
+    gap:15,
   },
-  retailerButton: {
-    gap: 12,
+  RetailerButton: {
+    gap: 18,
   },
+  MiddlemanButton:{
+
+  },
+  transportButton:{
+    
+  },
+
   phoneInput: {
     borderWidth: 1,
     borderColor: '#ddd',

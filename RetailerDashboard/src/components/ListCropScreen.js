@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   dashboardContainer: {
     flex: 1,
     padding: 20,
+    paddingTop:40,
     // We match the style of the main dashboard panel on the right
     backgroundColor: colors.cardBackground,
   },
