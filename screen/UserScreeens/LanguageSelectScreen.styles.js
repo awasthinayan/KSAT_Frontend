@@ -98,7 +98,7 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: '#ddd',
     borderRadius: 12,
-    paddingVertical: 15,
+    paddingVertical: 13,
     paddingHorizontal: 15,
     alignItems: 'center',
     marginBottom: 13,
@@ -139,7 +139,7 @@ export default StyleSheet.create({
 
   },
   transportButton:{
-    
+
   },
 
   phoneInput: {

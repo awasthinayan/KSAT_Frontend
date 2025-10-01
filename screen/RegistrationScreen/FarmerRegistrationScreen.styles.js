@@ -117,11 +117,11 @@ export default StyleSheet.create({
   },
   loginLink: {
     marginTop: 15,
-    padding: 10,
+    padding: 15,
   },
   loginLinkText: {
     color: '#1B7F4C',
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '600',
   }
 });

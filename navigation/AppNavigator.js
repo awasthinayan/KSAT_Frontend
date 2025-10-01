@@ -26,6 +26,7 @@ const AppNavigator = () => {
       <Stack.Screen name="FarmerDashboard" component={FarmerDashboard} />
       <Stack.Screen name="RetailerDashboard" component={ReatilerDashboard} />
       <Stack.Screen name="WholesalerDashboard" component={WholesalerDashboard} />
+      <Stack.Screen name="Login" component={FarmerLoginScreen} />
       
     </Stack.Navigator>
   );
