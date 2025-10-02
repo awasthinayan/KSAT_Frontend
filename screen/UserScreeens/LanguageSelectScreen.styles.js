@@ -112,9 +112,25 @@ export default StyleSheet.create({
   },
   roleIcon: {
     width: 30,
-    height: 29,
+    height: 30,
     marginRight: 8,
     resizeMode: 'contain',
+  },
+
+  retailerIcon:{
+    marginBottom:2,
+  },
+
+  transportIcon:{
+    width: 30,
+    height: 29,
+    marginRight: 25,
+    resizeMode: 'contain',
+    marginLeft:-10,
+  },
+
+  middlemanIcon:{
+    marginLeft:-10,
   },
   roleText: {
     fontSize: 18,

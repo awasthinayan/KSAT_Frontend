@@ -3,10 +3,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import WelcomeScreen from "../screen/common/WelcomeScreen";
 import LanguageSelectScreen from "../screen/UserScreeens/LanguageSelectScreen";
 import FarmerRegistrationScreen from "../screen/RegistrationScreen/FarmerRegistrationScreen";
-import FarmerLoginScreen from "../screen/FarmerLoginScreen/FarmerLoginScreen";
 import FarmerDashboard from "../FarmerDashboard/FarmerDashboard";
 import ReatilerDashboard from "../RetailerDashboard/RetailerDashboard";
-import WholesalerDashboard from "../WholesalerDashboard/App";
+import WholesalerDashboard from "../WholesalerDashboard/WholesalerDashboard";
+import CommonLoginScreen from "../screen/CommonLoginScreen/CommonLoginScreen";
+
 
 
 const Stack = createStackNavigator();
@@ -22,11 +23,12 @@ const AppNavigator = () => {
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="LanguageSelect" component={LanguageSelectScreen} />
       <Stack.Screen name="FarmerRegisterScreen" component={FarmerRegistrationScreen} />
-      <Stack.Screen name="FarmerLoginScreen" component={FarmerLoginScreen} />
+      <Stack.Screen name="Login Here" component={CommonLoginScreen} />
       <Stack.Screen name="FarmerDashboard" component={FarmerDashboard} />
       <Stack.Screen name="RetailerDashboard" component={ReatilerDashboard} />
       <Stack.Screen name="WholesalerDashboard" component={WholesalerDashboard} />
-      <Stack.Screen name="Login" component={FarmerLoginScreen} />
+      <Stack.Screen name="CommonLoginScreen" component={CommonLoginScreen} />
+    
       
     </Stack.Navigator>
   );

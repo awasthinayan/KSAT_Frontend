@@ -318,13 +318,15 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
                 )}
               </TouchableOpacity>
 
-              <View style={{ flexDirection: "row", padding:16}}>
+              <View style={{ flexDirection: "row", padding:16
+                
+              }}>
                 <Text style={registerStyles.loginLinkText}>
                   Already have an account?{" "}
                 </Text>
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate("FarmerLoginScreen", { role: "Farmer" })
+                    navigation.navigate("CommonLoginScreen", { role: "Farmer" })
                   }
                 >
                   <Text
@@ -333,7 +335,7 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
                       { color: "blue", fontWeight: "bold" },
                     ]}
                   >
-                    Login
+                    Login Here
                   </Text>
                 </TouchableOpacity>
               </View>

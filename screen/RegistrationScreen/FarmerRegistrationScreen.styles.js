@@ -6,13 +6,11 @@ export default StyleSheet.create({
   // --- Main Screen & Layout ---
   container: {
     flex: 1, 
-    paddingTop: 8,
-    paddingBottom: 2,
+    paddingTop: 32,
     
   },
   scrollContent: {
     flexGrow: 1,
-   
   },
   card: {
     width: '100%',
@@ -20,7 +18,7 @@ export default StyleSheet.create({
     maxWidth: 500, 
     backgroundColor: '#deffe4f1',
     borderRadius: 20, 
-    padding: 25,
+    padding: 15,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOpacity: 0.1,
