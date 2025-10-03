@@ -97,7 +97,7 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
   const [focusedField, setFocusedField] = useState(null);
   const [isRegisteringActive, setIsRegisteringActive] = useState(false);
   const [isLoginLinkActive, setIsLoginLinkActive] = useState(false);
-  
+
 
   const updateForm = useCallback((key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -171,7 +171,7 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
         let errorMessage = "Registration failed due to a server error.";
         try {
           const errorData = await response.json();
-          errorMessage = errorData.message || errorData.error || errorMessage;
+        errorMessage = errorData.msg || errorData.message || errorData.error || errorMessage;
         } catch (e) {
           errorMessage = `Registration failed: HTTP ${response.status} (${response.statusText})`;
         }
