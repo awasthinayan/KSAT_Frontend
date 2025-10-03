@@ -22,57 +22,57 @@ const CommonLoginScreen = ({ route, navigation }) => {
       navigation.navigate("RetailerDashboard", { user });
     } else if (role === "Wholesaler") {
       navigation.navigate("WholesalerDashboard", { user });
+    } else if (role === "Transport Partner") {
+      navigation.navigate("TransportPartnerDashboard", { user });
     } else {
       navigation.navigate("Welcome");
     }
   };
 
   const handleLogin = async () => {
-    if (!contactNo || !password) {
-      Alert.alert("Error", "Please enter both contact number and password");
-      return;
-    }
+  if (!contactNo || !password) {
+    Alert.alert("Error", "Please enter both contact number and password");
+    return;
+  }
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const response = await fetch(
-        `http://localhost:3000/api/auth/${role.toLowerCase()}/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contactNo, password }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        Alert.alert("Success", `${role} Login successful!`);
-        console.log("User Data:", data);
-
-        // ✅ Now using helper function
-        navigateToDashboard(role, data);
-      } else {
-        Alert.alert("Login Failed", data.message || "Invalid credentials");
+    const response = await fetch(
+      `http://localhost:3000/api/auth/${role.toLowerCase()}/login`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contact: contactNo, password }), // ✅ FIXED
       }
-    } catch (error) {
-      console.log("Backend not available, using dummy login...");
+    );
 
-      // ✅ Dummy data for offline login
-      const dummyUser = {
-        id: "12345",
-        name: `${role} User`,
-        role,
-        contactNo,
-      };
+    const data = await response.json();
 
-      Alert.alert("Offline Login", `Welcome ${dummyUser.name}!`);
-      navigateToDashboard(role, dummyUser);
-    } finally {
-      setLoading(false);
+    if (response.ok) {
+      Alert.alert("Success", `${role} Login successful!`);
+      console.log("User Data:", data);
+
+      navigateToDashboard(role, data);
+    } else {
+      Alert.alert("Login Failed", data.msg || data.message || "Invalid credentials"); // ✅ FIXED
     }
-  };
+  } catch (error) {
+    console.log("Backend not available, using dummy login...");
+
+    const dummyUser = {
+      id: "12345",
+      name: `${role} User`,
+      role,
+      contactNo,
+    };
+
+    Alert.alert("Offline Login", `Welcome ${dummyUser.name}!`);
+    navigateToDashboard(role, dummyUser);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <View style={styles.container}>

@@ -30,16 +30,19 @@ const roleIcons = {
 
 const { width } = Dimensions.get("window");
 
-const getScreenName = (role, type) => {
-  const baseName = role.replace(/\/.*/, "").replace(/\s/g, "");
+const screenNameMap = {
+  Farmer: "Farmer",
+  "Middleman/Wholesaler": "Middleman",
+  "Transport Partner": "TransportPartner",
+  Retailer: "Retailer",
+};
 
-  if (type === "Register") {
-    return `${baseName}RegisterScreen`;
-  }
-  if (type === "Login") {
-    return `${baseName}LoginScreen`;
-  }
-  return null;
+const getScreenName = (role, type) => {
+  const baseName = screenNameMap[role];
+  if (!baseName) return null;
+  return type === "Register"
+    ? `${baseName}RegisterScreen`
+    : `${baseName}LoginScreen`;
 };
 
 const LanguageSelectScreen = ({ navigation }) => {
@@ -50,7 +53,7 @@ const LanguageSelectScreen = ({ navigation }) => {
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const languages = ["English", "Hindi", "Marathi", "Tamil"];
+  const languages = ["English", "Hindi", "Bhojpuri", "Tamil"];
   const roles = [
     "Farmer",
     "Middleman/Wholesaler",
@@ -65,7 +68,7 @@ const LanguageSelectScreen = ({ navigation }) => {
 
   // --- NAVIGATION HANDLERS ---
 
-  //--- Login handlers 
+  //--- Login handlers
 
   const handleLoginPress = () => {
     if (!selectedRole) {
@@ -77,14 +80,14 @@ const LanguageSelectScreen = ({ navigation }) => {
     }
     const screenName = getScreenName(selectedRole, "Login");
 
-      console.log(`Navigating to Login Screen with role: ${selectedRole}`);
-  navigation.navigate("CommonLoginScreen", {
-    role: selectedRole,
-    language: selectedLanguage,
-  });
-};
+    console.log(`Navigating to Login Screen with role: ${selectedRole}`);
+    navigation.navigate("CommonLoginScreen", {
+      role: selectedRole,
+      language: selectedLanguage,
+    });
+  };
 
-    // Register handlers
+  // Register handlers
 
   const handleRegisterPress = () => {
     if (!selectedRole) {
@@ -152,15 +155,9 @@ const LanguageSelectScreen = ({ navigation }) => {
         >
           <View style={styles.card}>
             {/* Logo/Image */}
-            <Image
-              source={LogoIcon}
-              style={{
-                width: width * 0.3,
-                height: width * 0.3,
-                marginBottom: 15,
-                resizeMode: "contain",
-              }}
-            />
+            <View style={styles.logoContainer}>
+              <Image source={LogoIcon} style={styles.logoImage} />
+            </View>
 
             <Text style={styles.title}>Farm Connect</Text>
             <Text style={styles.subtitle}>Agricultural Supply Chain</Text>

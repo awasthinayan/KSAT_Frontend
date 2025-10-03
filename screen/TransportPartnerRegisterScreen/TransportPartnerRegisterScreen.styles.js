@@ -6,7 +6,8 @@ export default StyleSheet.create({
   // --- Main Screen & Layout ---
   container: {
     flex: 1, 
-    paddingTop: 28,
+    paddingTop: 32,
+    
   },
   scrollContent: {
     flexGrow: 1,
@@ -24,7 +25,6 @@ export default StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
     elevation: 8,
-    paddingBottom:40,
   },
   title: {
     fontSize: 28,

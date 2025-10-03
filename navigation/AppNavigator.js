@@ -7,6 +7,11 @@ import FarmerDashboard from "../FarmerDashboard/FarmerDashboard";
 import ReatilerDashboard from "../RetailerDashboard/RetailerDashboard";
 import WholesalerDashboard from "../WholesalerDashboard/WholesalerDashboard";
 import CommonLoginScreen from "../screen/CommonLoginScreen/CommonLoginScreen";
+import RetailerRegisterScreen from "../screen/RetailerRegisterScreen/RetailerRegisterScreen";
+import TransportPartnerRegisterScreen from "../screen/TransportPartnerRegisterScreen/TransportPartnerRegisterScreen";
+import TransportPartnerDashboard from "../TransportPartnerDashboard/TransportPartnerDashboard";
+import MiddlemanRegisterScreen from "../screen/MiddlemanRegisterScreen/MiddlemanRegisterScreen";
+
 
 
 
@@ -28,6 +33,11 @@ const AppNavigator = () => {
       <Stack.Screen name="RetailerDashboard" component={ReatilerDashboard} />
       <Stack.Screen name="WholesalerDashboard" component={WholesalerDashboard} />
       <Stack.Screen name="CommonLoginScreen" component={CommonLoginScreen} />
+      <Stack.Screen name="RetailerRegisterScreen" component={RetailerRegisterScreen} />
+      <Stack.Screen name="TransportPartnerRegisterScreen" component={TransportPartnerRegisterScreen} />
+      <Stack.Screen name="TransportPartnerDashboard" component={TransportPartnerDashboard} />
+      <Stack.Screen name="MiddlemanRegisterScreen" component={MiddlemanRegisterScreen} />
+
     
       
     </Stack.Navigator>

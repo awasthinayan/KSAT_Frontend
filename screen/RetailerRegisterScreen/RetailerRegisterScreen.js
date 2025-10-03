@@ -13,9 +13,9 @@ import {
   Keyboard,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import registerStyles from "./FarmerRegistrationScreen.styles"; // New styles file
+import registerStyles from "./RetailerRegisterScreen.styles"; // make a new styles file or reuse farmer one
 
-const API_URL = "http://localhost:3000/api/auth/farmer/register";
+const API_URL = "http://localhost:3000/api/auth/retailer/register";
 
 const InputField = React.memo(
   ({
@@ -30,10 +30,6 @@ const InputField = React.memo(
     editable = true,
     showPassword,
     setShowPassword,
-    //props for onFocus and onBlur callbacks
-    onFocus,
-    onBlur,
-    isFocused,
   }) => (
     <View style={registerStyles.section}>
       <Text style={registerStyles.label}>
@@ -55,8 +51,6 @@ const InputField = React.memo(
           placeholderTextColor="#999"
           maxLength={maxLength}
           editable={editable}
-          onFocus={onFocus} 
-          onBlur={onBlur}
         />
         {secureTextEntry && (
           <TouchableOpacity
@@ -73,9 +67,9 @@ const InputField = React.memo(
   )
 );
 
-const FarmerRegisterScreen = ({ navigation, route }) => {
+const RetailerRegisterScreen = ({ navigation, route }) => {
   const { role, language } = route.params || {
-    role: "Farmer",
+    role: "Retailer",
     language: "English",
   };
 
@@ -84,20 +78,15 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
     password: "",
     contact: "",
     location: "",
-    landSize: "",
-    farming_exp: "",
-    prefered_crop_type: "",
-    certifications: "",
+    shop_name: "",
+    shop_address: "",
+    gst_number: "",
+    license_number: "",
     aadhar_number: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const [focusedField, setFocusedField] = useState(null);
-  const [isRegisteringActive, setIsRegisteringActive] = useState(false);
-  const [isLoginLinkActive, setIsLoginLinkActive] = useState(false);
-  
 
   const updateForm = useCallback((key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -110,8 +99,10 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
       password,
       contact,
       location,
-      landSize,
-      farming_exp,
+      shop_name,
+      shop_address,
+      gst_number,
+      license_number,
       aadhar_number,
     } = form;
 
@@ -120,8 +111,10 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
       !password ||
       !contact ||
       !location ||
-      !landSize ||
-      !farming_exp ||
+      !shop_name ||
+      !shop_address ||
+      !gst_number ||
+      !license_number ||
       !aadhar_number
     ) {
       return false;
@@ -129,9 +122,6 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
     if (password.length < 6) return false;
     if (contact.length !== 10) return false;
     if (aadhar_number.length !== 12) return false;
-    if (isNaN(parseFloat(landSize)) || parseFloat(landSize) <= 0) return false;
-    if (isNaN(parseInt(farming_exp, 10)) || parseInt(farming_exp, 10) < 0)
-      return false;
 
     return true;
   }, [form]);
@@ -141,7 +131,7 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
     if (!isFormValid) {
       Alert.alert(
         "Incomplete Form",
-        "Please fill in all required fields and ensure formats (phone, Aadhar, land size) are correct."
+        "Please fill in all required fields and ensure formats (phone, Aadhar, GST, license) are correct."
       );
       return;
     }
@@ -149,17 +139,7 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
     setLoading(true);
 
     try {
-      const payload = {
-        name: form.name,
-        password: form.password,
-        contact: form.contact,
-        location: form.location,
-        landSize: parseFloat(form.landSize),
-        farming_exp: parseInt(form.farming_exp, 10),
-        prefered_crop_type: form.prefered_crop_type || "N/A",
-        certifications: form.certifications || "None",
-        aadhar_number: form.aadhar_number,
-      };
+      const payload = { ...form };
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -184,31 +164,16 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
         "Registration Successful!",
         `Welcome, ${form.name}. You can now log in.`
       );
-      navigation.navigate("FarmerDashboard", { user: result });
+      navigation.navigate("RetailerDashboard", { user: result });
     } catch (error) {
       Alert.alert(
         "Registration Failed",
-        `${
-          error.message || "A network error occurred."
-        }\n\nRedirecting to dashboard with offline data.`
+        error.message || "A network error occurred."
       );
-
-      navigation.navigate("FarmerDashboard", { user: form });
     } finally {
       setLoading(false);
     }
   };
-
-   const getInputProps = (key) => ({
-    value: form[key],
-    onChangeText: (text) => updateForm(key, text),
-    onFocus: () => setFocusedField(key),
-    onBlur: () => setFocusedField(null),
-    isFocused: focusedField === key,
-    editable: !loading,
-  });
-
-  
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -218,7 +183,7 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
       >
         <KeyboardAvoidingView
           style={{ flexGrow: 1, width: "100%", height: "100%" }}
-          behavior={Platform.OS === "ios" ? "padding" : "height"} // ✅ safer for Android
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 20}
         >
           <ScrollView
@@ -227,7 +192,7 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
             keyboardShouldPersistTaps="handled"
           >
             <View style={registerStyles.card}>
-              <Text style={registerStyles.title}>Farmer Registration</Text>
+              <Text style={registerStyles.title}>Retailer Registration</Text>
               <Text style={registerStyles.subtitle}>
                 Join the Farm Connect network. Selected Role: {role}
               </Text>
@@ -237,85 +202,94 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
               </Text>
 
               {/* --- Form Fields --- */}
-             <InputField
+              <InputField
                 label="Full Name"
+                value={form.name}
+                onChangeText={(text) => updateForm("name", text)}
                 placeholder="Enter your full name"
-                {...getInputProps("name")}
+                editable={!loading}
               />
 
               <InputField
                 label="Contact Number (10 digits)"
+                value={form.contact}
+                onChangeText={(text) => updateForm("contact", text)}
                 keyboardType="phone-pad"
                 maxLength={10}
-                placeholder="e.g., 7266016650"
-                {...getInputProps("contact")}
+                placeholder="e.g., 9876543210"
+                editable={!loading}
               />
 
               <InputField
                 label="Password (min 6 characters)"
+                value={form.password}
+                onChangeText={(text) => updateForm("password", text)}
                 secureTextEntry={true}
                 maxLength={20}
                 placeholder="Create a secure password"
+                editable={!loading}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
-                {...getInputProps("password")}
               />
 
               <InputField
                 label="Location / City"
-                placeholder="e.g., Lucknow, Uttar Pradesh"
-                {...getInputProps("location")}
+                value={form.location}
+                onChangeText={(text) => updateForm("location", text)}
+                placeholder="e.g., Lucknow, UP"
+                editable={!loading}
               />
 
               <InputField
-                label="Land Size (Acres/Hectares)"
-                keyboardType="numeric"
-                placeholder="e.g., 85.0"
-                {...getInputProps("landSize")}
+                label="Shop Name"
+                value={form.shop_name}
+                onChangeText={(text) => updateForm("shop_name", text)}
+                placeholder="Enter shop name"
+                editable={!loading}
               />
 
               <InputField
-                label="Farming Experience (Years)"
-                keyboardType="numeric"
-                maxLength={2}
-                placeholder="e.g., 8"
-                {...getInputProps("farming_exp")}
+                label="Shop Address"
+                value={form.shop_address}
+                onChangeText={(text) => updateForm("shop_address", text)}
+                placeholder="Enter full shop address"
+                editable={!loading}
               />
 
               <InputField
-                label="Preferred Crop Type"
-                required={false}
-                placeholder="e.g., Oranges, Wheat, etc."
-                {...getInputProps("prefered_crop_type")}
+                label="GST Number"
+                value={form.gst_number}
+                onChangeText={(text) => updateForm("gst_number", text)}
+                placeholder="Enter GST number"
+                editable={!loading}
               />
 
               <InputField
-                label="Certifications (Optional)"
-                required={false}
-                placeholder="e.g., Organic Certification (if applicable)"
-                {...getInputProps("certifications")}
+                label="License Number"
+                value={form.license_number}
+                onChangeText={(text) => updateForm("license_number", text)}
+                placeholder="Enter license number"
+                editable={!loading}
               />
 
               <InputField
                 label="Aadhar Number (12 digits)"
+                value={form.aadhar_number}
+                onChangeText={(text) => updateForm("aadhar_number", text)}
                 keyboardType="numeric"
                 maxLength={12}
-                placeholder="Enter your 12-digit Aadhar number"
-                {...getInputProps("aadhar_number")}
+                placeholder="Enter 12-digit Aadhar number"
+                editable={!loading}
               />
 
-              {/* Register Button with Press Animation */}
+              {/* Register Button */}
               <TouchableOpacity
                 style={[
                   registerStyles.registerButton,
                   !isFormValid && registerStyles.registerButtonDisabled,
-                  // Apply active style (includes scale transform)
-                  isRegisteringActive && registerStyles.registerButtonActive,
                 ]}
                 onPress={handleRegister}
                 disabled={!isFormValid || loading}
-                onPressIn={() => setIsRegisteringActive(true)}
-                onPressOut={() => setIsRegisteringActive(false)}
               >
                 {loading ? (
                   <ActivityIndicator color="#FFFFFF" />
@@ -326,24 +300,19 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
                 )}
               </TouchableOpacity>
 
-              <View style={{ flexDirection: "row", padding:16 }}>
+              <View style={{ flexDirection: "row", padding: 16 }}>
                 <Text style={registerStyles.loginLinkText}>
                   Already have an account?{" "}
                 </Text>
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate("CommonLoginScreen", { role: "Farmer" })
+                    navigation.navigate("CommonLoginScreen", { role: "Retailer" })
                   }
-                  // Apply active state for text color change
-                  onPressIn={() => setIsLoginLinkActive(true)}
-                  onPressOut={() => setIsLoginLinkActive(false)}
                 >
                   <Text
                     style={[
                       registerStyles.loginLinkText,
                       { color: "blue", fontWeight: "bold" },
-                      // Apply active style when pressed
-                      isLoginLinkActive && registerStyles.loginLinkActive,
                     ]}
                   >
                     Login Here
@@ -358,4 +327,4 @@ const FarmerRegisterScreen = ({ navigation, route }) => {
   );
 };
 
-export default FarmerRegisterScreen;
+export default RetailerRegisterScreen;
